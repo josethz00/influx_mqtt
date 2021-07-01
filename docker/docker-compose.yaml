@@ -1,0 +1,25 @@
+version: '3'
+services:
+  influxdb:
+    container_name: influxdb-container
+    image: influxdb:latest
+    ports:
+      - '8086:8086'
+    volumes:
+      - ./influxdb-storage:/usr/shared/code/influxdb2
+    environment:
+      - INFLUXDB_DB=workshop_db
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=admin
+  mqtt:
+      container_name: mqtt-container
+      image: eclipse-mosquitto:1.6
+      restart: always
+      volumes:
+        - ./mqtt/config:/mqtt/config
+        - ./mqtt/data:/mqtt/data
+        - ./mqtt/log:/mqtt/log
+      ports:
+        - 1883:1883
+volumes:
+  influxdb-storage: 

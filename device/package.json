@@ -1,0 +1,11 @@
+{
+  "name": "influx_mqtt",
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "MIT",
+  "dependencies": {
+    "mqtt": "^4.2.8",
+    "paho-mqtt": "^1.1.0",
+    "ws": "^7.5.1"
+  }
+}
