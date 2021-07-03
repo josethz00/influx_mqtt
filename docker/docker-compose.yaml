@@ -10,7 +10,7 @@ services:
     networks:
       - grafana_network
     volumes:
-      - ./grafana_data:/var/lib/grafana
+      - ./grafana-storage:/var/lib/grafana
     depends_on:
       - influxdb
   influxdb:
