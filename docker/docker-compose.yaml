@@ -1,25 +1,46 @@
 version: '3'
 services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    ports:
+      - 3000:3000
+    user: "1000"
+    networks:
+      - grafana_network
+    volumes:
+      - ./grafana_data:/var/lib/grafana
+    depends_on:
+      - influxdb
   influxdb:
     container_name: influxdb-container
-    image: influxdb:latest
+    image: influxdb:1.8.3
     ports:
       - '8086:8086'
+    networks:
+      - grafana_network
     volumes:
-      - ./influxdb-storage:/usr/shared/code/influxdb2
+      - ./influxdb-storage:/var/lib/influxdb
     environment:
-      - INFLUXDB_DB=workshop_db
-      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_DB=workshop
+      - INFLUXDB_USER=workshop
+      - INFLUXDB_USER_PASSWORD=workshop
+      - INFLUXDB_ADMIN_ENABLED=true
+      - INFLUXDB_ADMIN_USER=admin 
       - INFLUXDB_ADMIN_PASSWORD=admin
   mqtt:
       container_name: mqtt-container
       image: eclipse-mosquitto:1.6
       restart: always
       volumes:
-        - ./mqtt/config:/mqtt/config
-        - ./mqtt/data:/mqtt/data
-        - ./mqtt/log:/mqtt/log
+        - ./mqtt-storage/config:/mqtt/config
+        - ./mqtt-storage/data:/mqtt/data
+        - ./mqtt-storage/log:/mqtt/log
       ports:
         - 1883:1883
+networks:
+  grafana_network:
 volumes:
-  influxdb-storage: 
+  grafana_data:
+  influxdb_data:

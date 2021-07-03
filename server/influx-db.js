@@ -1,11 +1,11 @@
-const Influx = require('influx');
+const { InfluxDB } = require('influx');
 
-const influx = new Influx.InfluxDB({
-  database: 'workshop_db',
+const influx = new InfluxDB({
   host: 'localhost',
   port: 8086,
-  username: 'admin',
-  password: 'admin',
+  username: 'workshop',
+  password: 'workshop',
+  database: 'workshop',
 });
 
 module.exports = { influx };
