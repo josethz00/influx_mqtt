@@ -6,6 +6,7 @@ const influx = new InfluxDB({
   username: 'workshop',
   password: 'workshop',
   database: 'workshop',
-});
+}); 
 
 module.exports = { influx };
+  
